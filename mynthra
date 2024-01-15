@@ -1,0 +1,86 @@
+package shoppingCart;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Product {
+	String name;
+	double price;
+
+	public Product(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+}
+
+class ShoppingCart {
+	ArrayList<Product> items = new ArrayList<>();
+
+	public void addItem(Product product) {
+		items.add(product);
+	}
+
+	public double calculateTotal() {
+		double total = 0;
+		for (Product item : items) {
+			total += item.price;
+		}
+		return total;
+	}
+
+	public void displayCart() {
+		System.out.println("Shopping Cart:");
+		for (Product item : items) {
+			System.out.println("- " + item.name + ": $" + item.price);
+		}
+		System.out.println("Total: $" + calculateTotal());
+	}
+}
+
+public class ECommerceSimulation {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		Product shirt = new Product("T-Shirt", 20.99);
+		Product jeans = new Product("Jeans", 34.99);
+		Product sneakers = new Product("Sneakers", 49.99);
+
+		ShoppingCart cart = new ShoppingCart();
+
+		while (true) {
+			System.out.println("Available Products:");
+			System.out.println("1. " + shirt.name + ": $" + shirt.price);
+			System.out.println("2. " + jeans.name + ": $" + jeans.price);
+			System.out.println("3. " + sneakers.name + ": $" + sneakers.price);
+			System.out.println("4. Checkout");
+			System.out.println("5. Exit");
+
+			System.out.print("Enter your choice: ");
+			int choice = scanner.nextInt();
+
+			switch (choice) {
+			case 1:
+				cart.addItem(shirt);
+				System.out.println(shirt.name + " added to cart.");
+				break;
+			case 2:
+				cart.addItem(jeans);
+				System.out.println(jeans.name + " added to cart.");
+				break;
+			case 3:
+				cart.addItem(sneakers);
+				System.out.println(sneakers.name + " added to cart.");
+				break;
+			case 4:
+				System.out.println("\nOrder Summary:");
+				cart.displayCart();
+				System.out.println("Thank you for shopping with us!");
+				System.exit(0);
+			case 5:
+				System.exit(0);
+			default:
+				System.out.println("Invalid choice. Please try again.");
+			}
+		}
+	}
+}
